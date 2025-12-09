@@ -25,3 +25,23 @@ jobs:
 
       - name: Run RSpec
         run: bundle exec rspec
+
+  lint:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby-version: ["3.2"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+
+      - name: Run RuboCop
+        run: bundle exec rubocop
