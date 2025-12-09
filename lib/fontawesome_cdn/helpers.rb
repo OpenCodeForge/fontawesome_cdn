@@ -31,8 +31,8 @@ module FontawesomeCdn
     def icon(style, name, text = nil, html_options = {})
       text, html_options = nil, text if text.is_a?(Hash)
 
-      classes = [style, "fa-#{name}", html_options[:class]].compact
-      html_options[:class] = classes.join(" ")
+      classes                     = [style, "fa-#{name}", html_options[:class]].compact
+      html_options[:class]        = classes.join(" ")
       html_options["aria-hidden"] ||= true
 
       icon_tag = tag.i(nil, **html_options)
