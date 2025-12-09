@@ -26,7 +26,7 @@ module FontawesomeCdn
     #   <%= icon "fa-solid", "user" %>
     #   <%= icon "fa-regular", "bell", class: "fa-2x fa-shake" %>
     #   <%= icon "fa-brands", "font-awesome", "Font Awesome" %>
-    #   <%= icon "fa-solid", "check", aria: { hidden: false } %>
+    #   <%= icon "fa-solid", "check", "aria-hidden": false %>
     #
     def icon(style, name, text = nil, html_options = {})
       text, html_options = nil, text if text.is_a?(Hash)
