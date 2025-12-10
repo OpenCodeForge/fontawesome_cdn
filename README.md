@@ -42,9 +42,10 @@ Place this helper in your layout, inside `<head>`.
 Use this helper anywhere in your views or partials.
 
 ```erb
-<%= icon "fa-solid", "user" %>
-<%= icon "fa-regular", "bell", class: "fa-2x" %>
-<%= icon "fa-brands", "font-awesome", "Font Awesome" %>
+<%= icon "user" %>
+<%= icon "gear", "Settings" %>
+<%= icon "trash-can", "Delete", style: "regular" %>
+<%= icon "github", pack: "brands", class: "fa-2x fa-shake" %>
 ```
 
 ---

@@ -9,6 +9,9 @@ AllCops:
 RSpec:
   Enabled: true
 
+Metrics/AbcSize:
+  Max: 20
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

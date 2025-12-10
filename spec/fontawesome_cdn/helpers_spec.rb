@@ -72,15 +72,14 @@ RSpec.describe FontawesomeCdn::Helpers do
   end
 
   describe "#icon" do
-    subject(:html) { view.icon(style, name, text, **options) }
+    subject(:html) { view.icon(name, text, **options) }
 
-    let(:style) { "fa-solid" }
     let(:name) { "user" }
     let(:text) { nil }
     let(:options) { {} }
 
     context "without text" do
-      it "renders only the <i> tag with the correct classes and aria-hidden" do
+      it "renders a solid icon by default" do
         expect(html).to eq('<i class="fa-solid fa-user" aria-hidden="true"></i>')
       end
     end
@@ -99,17 +98,22 @@ RSpec.describe FontawesomeCdn::Helpers do
       let(:options) { { class: "fa-2x fa-shake" } }
 
       it "merges the additional classes" do
-        expect(html).to include(
-          'class="fa-solid fa-user fa-2x fa-shake"'
+        expect(html).to eq(
+          '<i class="fa-solid fa-user fa-2x fa-shake" aria-hidden="true"></i>'
         )
       end
     end
 
     context "when a Hash is passed instead of text" do
-      let(:text) { { class: "fa-2x" } }
+      subject(:html) { view.icon(name, text_or_options) }
+
+      let(:name) { "user" }
+      let(:text_or_options) { { class: "fa-2x" } }
 
       it "treats the Hash as html_options" do
-        expect(html).to eq('<i class="fa-solid fa-user fa-2x" aria-hidden="true"></i>')
+        expect(html).to eq(
+          '<i class="fa-solid fa-user fa-2x" aria-hidden="true"></i>'
+        )
       end
     end
 
@@ -118,6 +122,68 @@ RSpec.describe FontawesomeCdn::Helpers do
 
       it "respects the provided aria-hidden value" do
         expect(html).to include('aria-hidden="false"')
+      end
+    end
+
+    context "with a regular style passed as a symbol" do
+      let(:name) { "trash-can" }
+      let(:text) { "Delete" }
+      let(:options) { { style: :regular } }
+
+      it "uses the regular style and appends the text" do
+        expect(html).to eq(
+          '<i class="fa-regular fa-trash-can" aria-hidden="true"></i> Delete'
+        )
+      end
+    end
+
+    context "with a regular style passed as a string" do
+      let(:name) { "trash-can" }
+      let(:text) { "Delete" }
+      let(:options) { { style: "regular" } }
+
+      it "uses the regular style and appends the text" do
+        expect(html).to eq(
+          '<i class="fa-regular fa-trash-can" aria-hidden="true"></i> Delete'
+        )
+      end
+    end
+
+    context "with the brands pack passed as a symbol" do
+      let(:name) { "github" }
+      let(:options) { { pack: :brands, class: "fa-2x" } }
+
+      it "renders a brand icon without a style class" do
+        expect(html).to eq(
+          '<i class="fa-brands fa-github fa-2x" aria-hidden="true"></i>'
+        )
+      end
+    end
+
+    context "with the brands pack passed as a string" do
+      let(:name) { "github" }
+      let(:options) { { pack: "brands" } }
+
+      it "renders a brand icon without a style class" do
+        expect(html).to eq(
+          '<i class="fa-brands fa-github" aria-hidden="true"></i>'
+        )
+      end
+    end
+
+    context "when a style name is mistakenly used as a pack" do
+      let(:options) { { pack: :solid } }
+
+      it "raises an ArgumentError about style used as pack" do
+        expect { html }.to raise_error(ArgumentError, /is a style, not a pack/)
+      end
+    end
+
+    context "when an unsupported style is provided" do
+      let(:options) { { style: :weird } }
+
+      it "raises an ArgumentError about unsupported icon style" do
+        expect { html }.to raise_error(ArgumentError, /unsupported icon style/)
       end
     end
   end

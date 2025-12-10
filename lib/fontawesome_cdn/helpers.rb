@@ -13,15 +13,16 @@ module FontawesomeCdn
 
   SUPPORTED_VERSIONS = INTEGRITY_MAP.keys.freeze
 
+  ICON_STYLES = %w[solid regular light thin semibold].freeze
+  DEFAULT_ICON_STYLE = "solid"
+
   # Helpers exposed to Rails views.
   #
   # Provides:
   # - fontawesome_cdn_stylesheet_tag(version)
-  # - icon(style, name, text = nil, html_options = {})
+  # - icon(name, text = nil, **options)
   module Helpers
     # Stylesheet helper for loading Font Awesome via CDN
-    #
-    # Usage:
     #
     #   <%= fontawesome_cdn_stylesheet_tag "7.0.1" %>
     #
@@ -45,28 +46,32 @@ module FontawesomeCdn
 
     # Main helper for displaying an icon
     #
-    #   <%= icon "fa-solid", "user" %>
-    #   <%= icon "fa-regular", "bell", class: "fa-2x fa-shake" %>
-    #   <%= icon "fa-brands", "font-awesome", "Font Awesome" %>
-    #   <%= icon "fa-solid", "check", "aria-hidden": false %>
+    #   <%= icon "user" %>
+    #   <%= icon "gear", "Settings" %>
+    #   <%= icon "trash-can", "Delete", style: :regular %>
+    #   <%= icon "github", pack: :brands, class: "fa-2x fa-shake" %>
     #
-    def icon(style, name, text = nil, html_options = {})
+    def icon(name, text = nil, **options)
+      # Allow the 2nd argument to be either text or the options hash
       if text.is_a?(Hash)
-        html_options = text
+        options = text
         text = nil
       end
 
-      classes = [style, "fa-#{name}", html_options[:class]].compact
-      html_options[:class] = classes.join(" ")
-      html_options["aria-hidden"] ||= true
+      pack_class, style_class = build_pack_and_style_classes(options)
+      options[:class] = [pack_class, style_class, "fa-#{name}", options[:class]].compact.join(" ")
+      options["aria-hidden"] = true unless options.key?("aria-hidden") || options.key?(:'aria-hidden')
 
-      icon_tag = tag.i(nil, **html_options)
+      icon_tag = tag.i(nil, **options)
 
-      text.blank? ? icon_tag : safe_join([icon_tag, " ", text.to_s])
+      text.nil? || text.to_s.strip.empty? ? icon_tag : safe_join([icon_tag, " ", text.to_s])
     end
 
     private
 
+    #
+    # Font Awesome version validation
+    #
     def validate_fontawesome_version!(version)
       raise_version_required_error if version.nil?
       raise_version_type_error(version) unless version.is_a?(String)
@@ -90,6 +95,42 @@ module FontawesomeCdn
       raise ArgumentError, <<~MSG
         fontawesome_cdn: Font Awesome version #{version.inspect} is not supported.
         Supported versions: #{FontawesomeCdn::SUPPORTED_VERSIONS.join(", ")}
+      MSG
+    end
+
+    # Classes:
+    # - style → fa-solid / fa-regular / ...
+    # - pack → fa-brands / ...
+    # Special case: brands icons don't use a style like "solid"
+    def build_pack_and_style_classes(options)
+      pack = options.delete(:pack)&.to_s
+      style = options.delete(:style)&.to_s
+      style ||= DEFAULT_ICON_STYLE unless pack == "brands"
+
+      validate_icon_style_and_pack!(style, pack)
+
+      [pack, style].compact.map { |c| "fa-#{c}" }
+    end
+
+    #
+    # Icon validation
+    #
+    def validate_icon_style_and_pack!(style, pack)
+      raise_style_used_as_pack_error(pack) if pack && ICON_STYLES.include?(pack)
+      raise_unsupported_icon_style_error(style) if style && !ICON_STYLES.include?(style)
+    end
+
+    def raise_style_used_as_pack_error(pack)
+      raise ArgumentError, <<~MSG
+        fontawesome_cdn: #{pack.inspect} is a style, not a pack.
+        Use style: #{pack.inspect} instead.
+      MSG
+    end
+
+    def raise_unsupported_icon_style_error(style)
+      raise ArgumentError, <<~MSG
+        fontawesome_cdn: unsupported icon style #{style.inspect}.
+        Supported styles: #{ICON_STYLES.join(", ")}
       MSG
     end
   end
