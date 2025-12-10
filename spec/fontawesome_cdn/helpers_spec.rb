@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "action_view"
 require "fontawesome_cdn/helpers"
 
@@ -11,16 +13,16 @@ RSpec.describe FontawesomeCdn::Helpers do
   end
 
   describe "#fontawesome_cdn_stylesheet_tag" do
+    subject(:html) { view.fontawesome_cdn_stylesheet_tag(version, **options) }
+
     let(:version) { "7.0.1" }
     let(:options) { {} }
-
-    subject(:html) { view.fontawesome_cdn_stylesheet_tag(version, **options) }
 
     context "with a supported version" do
       it "renders a stylesheet link tag with the correct URL" do
         expect(html).to include(
-                          'href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"'
-                        )
+          'href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"'
+        )
       end
 
       it "includes the integrity attribute" do
@@ -34,13 +36,13 @@ RSpec.describe FontawesomeCdn::Helpers do
       it "includes referrerpolicy=no-referrer" do
         expect(html).to include('referrerpolicy="no-referrer"')
       end
+    end
 
-      context "with additional HTML options" do
-        let(:options) { { media: "all" } }
+    context "with a supported version and additional HTML options" do
+      let(:options) { { media: "all" } }
 
-        it "merges the additional HTML options" do
-          expect(html).to include('media="all"')
-        end
+      it "merges the additional HTML options" do
+        expect(html).to include('media="all"')
       end
     end
 
@@ -87,7 +89,9 @@ RSpec.describe FontawesomeCdn::Helpers do
       let(:text) { "Profile" }
 
       it "renders the icon followed by the text" do
-        expect(html).to eq('<i class="fa-solid fa-user" aria-hidden="true"></i> Profile')
+        expect(html).to eq(
+          '<i class="fa-solid fa-user" aria-hidden="true"></i> Profile'
+        )
       end
     end
 
@@ -95,13 +99,14 @@ RSpec.describe FontawesomeCdn::Helpers do
       let(:options) { { class: "fa-2x fa-shake" } }
 
       it "merges the additional classes" do
-        expect(html).to include('class="fa-solid fa-user fa-2x fa-shake"')
+        expect(html).to include(
+          'class="fa-solid fa-user fa-2x fa-shake"'
+        )
       end
     end
 
     context "when a Hash is passed instead of text" do
       let(:text) { { class: "fa-2x" } }
-      let(:options) { {} }
 
       it "treats the Hash as html_options" do
         expect(html).to eq('<i class="fa-solid fa-user fa-2x" aria-hidden="true"></i>')

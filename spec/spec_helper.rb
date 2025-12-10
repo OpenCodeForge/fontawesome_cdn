@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "fontawesome_cdn"
 
 RSpec.configure do |config|

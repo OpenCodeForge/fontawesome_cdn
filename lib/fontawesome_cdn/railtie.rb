@@ -4,6 +4,7 @@ require "rails/railtie"
 require "fontawesome_cdn/helpers"
 
 module FontawesomeCdn
+  # Railtie for loading FontawesomeCdn helpers into Rails.
   class Railtie < ::Rails::Railtie
     initializer "fontawesome_cdn.view_helpers" do
       ActiveSupport.on_load(:action_view) do

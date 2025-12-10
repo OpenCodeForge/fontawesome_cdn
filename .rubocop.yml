@@ -1,9 +1,10 @@
-require:
+plugins:
+  - rubocop-rake
   - rubocop-rspec
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 3.0
 
 RSpec:
   Enabled: true

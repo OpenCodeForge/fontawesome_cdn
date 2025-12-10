@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module FontawesomeCdn
-  BASE_URL = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome".freeze
+  BASE_URL = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome"
 
   # Font Awesome versions supported by the gem
   # SRI hashes provided by cdnjs for all.min.css
@@ -13,6 +13,11 @@ module FontawesomeCdn
 
   SUPPORTED_VERSIONS = INTEGRITY_MAP.keys.freeze
 
+  # Helpers exposed to Rails views.
+  #
+  # Provides:
+  # - fontawesome_cdn_stylesheet_tag(version)
+  # - icon(style, name, text = nil, html_options = {})
   module Helpers
     # Stylesheet helper for loading Font Awesome via CDN
     #
@@ -23,34 +28,19 @@ module FontawesomeCdn
     # Raises ArgumentError if version is not supported.
     #
     def fontawesome_cdn_stylesheet_tag(version = nil, **options)
-      if version.nil?
-        raise ArgumentError,
-              "fontawesome_cdn: Font Awesome version is required. " \
-                "Usage: <%= fontawesome_cdn_stylesheet_tag \"7.x.x\" %>"
-      end
-
-      unless version.is_a?(String)
-        raise ArgumentError,
-              "fontawesome_cdn: version must be a String, got #{version.class}"
-      end
-
-      unless FontawesomeCdn::SUPPORTED_VERSIONS.include?(version)
-        raise ArgumentError,
-              "fontawesome_cdn: Font Awesome version #{version.inspect} is not supported. " \
-                "Supported versions: #{FontawesomeCdn::SUPPORTED_VERSIONS.join(', ')}"
-      end
+      validate_fontawesome_version!(version)
 
       href = "#{FontawesomeCdn::BASE_URL}/#{version}/css/all.min.css"
 
       attrs = {
-        rel:            "stylesheet",
-        href:           href,
-        integrity:      FontawesomeCdn::INTEGRITY_MAP[version],
-        crossorigin:    "anonymous",
+        rel: "stylesheet",
+        href: href,
+        integrity: FontawesomeCdn::INTEGRITY_MAP[version],
+        crossorigin: "anonymous",
         referrerpolicy: "no-referrer"
       }
 
-      tag.link(**attrs.merge(options))
+      tag.link(**attrs, **options)
     end
 
     # Main helper for displaying an icon
@@ -61,15 +51,46 @@ module FontawesomeCdn
     #   <%= icon "fa-solid", "check", "aria-hidden": false %>
     #
     def icon(style, name, text = nil, html_options = {})
-      text, html_options = nil, text if text.is_a?(Hash)
+      if text.is_a?(Hash)
+        html_options = text
+        text = nil
+      end
 
-      classes                     = [style, "fa-#{name}", html_options[:class]].compact
-      html_options[:class]        = classes.join(" ")
+      classes = [style, "fa-#{name}", html_options[:class]].compact
+      html_options[:class] = classes.join(" ")
       html_options["aria-hidden"] ||= true
 
       icon_tag = tag.i(nil, **html_options)
 
       text.blank? ? icon_tag : safe_join([icon_tag, " ", text.to_s])
+    end
+
+    private
+
+    def validate_fontawesome_version!(version)
+      raise_version_required_error if version.nil?
+      raise_version_type_error(version) unless version.is_a?(String)
+      raise_version_not_supported_error(version) unless FontawesomeCdn::SUPPORTED_VERSIONS.include?(version)
+    end
+
+    def raise_version_required_error
+      raise ArgumentError, <<~MSG
+        fontawesome_cdn: Font Awesome version is required.
+        Usage: <%= fontawesome_cdn_stylesheet_tag "7.x.x" %>
+      MSG
+    end
+
+    def raise_version_type_error(version)
+      raise ArgumentError, <<~MSG
+        fontawesome_cdn: version must be a String, got #{version.class}
+      MSG
+    end
+
+    def raise_version_not_supported_error(version)
+      raise ArgumentError, <<~MSG
+        fontawesome_cdn: Font Awesome version #{version.inspect} is not supported.
+        Supported versions: #{FontawesomeCdn::SUPPORTED_VERSIONS.join(", ")}
+      MSG
     end
   end
 end

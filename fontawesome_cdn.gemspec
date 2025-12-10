@@ -5,12 +5,15 @@ require_relative "lib/fontawesome_cdn/version"
 Gem::Specification.new do |spec|
   spec.name        = "fontawesome_cdn"
   spec.version     = FontawesomeCdn::VERSION
-  spec.summary     = "Load Font Awesome via CDN and provide a simple icon helper for Rails."
-  spec.description = "A tiny Rails integration for Font Awesome via CDN: one stylesheet tag helper and an `icon` helper. Nothing more."
-  spec.authors     = ["OpenCodeForge"]
-  spec.email       = ["contact@opencodeforge.com"]
-  spec.homepage    = "https://github.com/OpenCodeForge/fontawesome_cdn"
-  spec.license     = "MIT"
+  spec.summary     = "Simple Rails helpers to load Font Awesome from a CDN."
+  spec.description = <<~DESC
+    Tiny Rails helpers to load Font Awesome via CDN and render icons.
+    No asset pipeline integration, no JavaScript, no magic.
+  DESC
+  spec.authors  = ["OpenCodeForge"]
+  spec.email    = ["contact@opencodeforge.com"]
+  spec.homepage = "https://github.com/OpenCodeForge/fontawesome_cdn"
+  spec.license  = "MIT"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -22,10 +25,12 @@ Gem::Specification.new do |spec|
     end
   end
 
+  spec.required_ruby_version = ">= 3.0"
   spec.add_dependency "railties", ">= 7.0"
 
   spec.metadata = {
     "source_code_uri" => "https://github.com/OpenCodeForge/fontawesome_cdn",
-    "changelog_uri"   => "https://github.com/OpenCodeForge/fontawesome_cdn/blob/main/CHANGELOG.md"
+    "changelog_uri" => "https://github.com/OpenCodeForge/fontawesome_cdn/blob/main/CHANGELOG.md",
+    "rubygems_mfa_required" => "true"
   }
 end
