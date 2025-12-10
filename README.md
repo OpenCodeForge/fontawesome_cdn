@@ -1,5 +1,6 @@
 # 🎨 FontawesomeCdn
 
+[![Gem Version](https://img.shields.io/gem/v/fontawesome_cdn.svg)](https://rubygems.org/gems/fontawesome_cdn)
 [![CI](https://github.com/OpenCodeForge/fontawesome_cdn/actions/workflows/ci.yml/badge.svg)](https://github.com/OpenCodeForge/fontawesome_cdn/actions/workflows/ci.yml)
 
 Simple Rails helpers to load **Font Awesome via CDN** and render icons in views.
