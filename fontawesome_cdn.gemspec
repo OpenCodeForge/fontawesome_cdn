@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version = FontawesomeCdn::VERSION
   spec.summary = "Simple Rails helpers to load Font Awesome from a CDN."
   spec.description = <<~DESC
-    Tiny Rails helpers to load Font Awesome via CDN and render icons.
+    Simple Rails helpers to load Font Awesome via CDN and render icons.
     No asset pipeline integration, no JavaScript, no magic.
   DESC
   spec.authors = ["OpenCodeForge"]
