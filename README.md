@@ -44,8 +44,8 @@ Use this helper anywhere in your views or partials.
 ```erb
 <%= icon "user" %>
 <%= icon "gear", "Settings" %>
-<%= icon "trash-can", "Delete", style: "regular" %>
-<%= icon "github", pack: "brands", class: "fa-2x fa-shake" %>
+<%= icon "trash-can", "Delete", style: :regular %>
+<%= icon "github", pack: :brands, class: "fa-2x fa-shake" %>
 ```
 
 ---
