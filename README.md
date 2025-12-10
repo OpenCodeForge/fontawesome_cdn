@@ -51,7 +51,7 @@ Use this helper anywhere in your views or partials.
 
 ## ✅ Supported Font Awesome versions
 
-Font Awesome is loaded directly from **cdnjs**.
+Font Awesome is loaded directly from [cdnjs](https://cdnjs.com/libraries/font-awesome).
 
 **Supported versions** (with verified SRI):
 
