@@ -60,7 +60,7 @@ module FontawesomeCdn
 
       pack_class, style_class = build_pack_and_style_classes(options)
       options[:class] = [pack_class, style_class, "fa-#{name}", options[:class]].compact.join(" ")
-      options["aria-hidden"] = true unless options.key?("aria-hidden") || options.key?(:'aria-hidden')
+      options["aria-hidden"] = true unless options.key?("aria-hidden") || options.key?(:"aria-hidden")
 
       icon_tag = tag.i(nil, **options)
 
