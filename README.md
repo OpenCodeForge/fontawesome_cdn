@@ -1,23 +1,65 @@
-# FontawesomeCdn
+# 🎨 FontawesomeCdn
 
-A tiny Rails helper gem to load Font Awesome via CDN and render icons with a simple, explicit API.
+[![CI](https://github.com/OpenCodeForge/fontawesome_cdn/actions/workflows/ci.yml/badge.svg)](https://github.com/OpenCodeForge/fontawesome_cdn/actions/workflows/ci.yml)
 
-Nothing more. Nothing less.
+Simple Rails helpers to load **Font Awesome via CDN** and render icons in views.
+
+✅ Compatible with **Font Awesome 7**  
+✅ Compatible with **Rails 8**  
+✅ No asset pipeline  
+✅ No JavaScript
+
 
 ---
 
-## Why this gem?
+## 📦 Installation
 
-FontawesomeCdn is intentionally minimal:
+```ruby
+gem "fontawesome_cdn"
+```
 
-- ✅ No asset pipeline integration
-- ✅ No SVG handling
-- ✅ No JavaScript
-- ✅ No configuration files
-- ✅ No implicit defaults
+```bash
+bundle install
+```
 
-You explicitly choose the Font Awesome version, and the gem takes care of:
+---
 
-- generating the correct <link> tag
-- adding the correct SRI integrity hash
-- providing a small icon view helper
+## 🚀 Usage
+
+### Load Font Awesome (layout)
+
+Place this helper in your layout, inside `<head>`.
+
+```erb
+<%= fontawesome_cdn_stylesheet_tag "7.0.1" %>
+```
+
+---
+
+### Render icons (views)
+
+Use this helper anywhere in your views or partials.
+
+```erb
+<%= icon "fa-solid", "user" %>
+<%= icon "fa-regular", "bell", class: "fa-2x" %>
+<%= icon "fa-brands", "font-awesome", "Font Awesome" %>
+```
+
+---
+
+## ✅ Supported Font Awesome versions
+
+Font Awesome is loaded directly from **cdnjs**.
+
+**Supported versions** (with verified SRI):
+
+- ✅ **7.0.1**
+- ✅ **7.0.0**
+- ✅ **6.7.2**
+
+---
+
+## 📄 License
+
+MIT
