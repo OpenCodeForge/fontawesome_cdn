@@ -12,6 +12,9 @@ RSpec:
 Metrics/AbcSize:
   Max: 20
 
+Metrics/MethodLength:
+  Max: 20
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
