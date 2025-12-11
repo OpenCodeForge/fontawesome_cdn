@@ -26,11 +26,10 @@ Gem::Specification.new do |spec|
   end
 
   spec.required_ruby_version = ">= 3.0"
-  spec.add_dependency "railties", ">= 7.0"
+  spec.add_dependency "railties", ">= 7.0", "< 9.0"
 
   spec.metadata = {
     "homepage_uri" => spec.homepage,
-    "source_code_uri" => "https://github.com/OpenCodeForge/fontawesome_cdn",
     "bug_tracker_uri" => "https://github.com/OpenCodeForge/fontawesome_cdn/issues",
     "changelog_uri" => "https://github.com/OpenCodeForge/fontawesome_cdn/blob/main/CHANGELOG.md",
     "rubygems_mfa_required" => "true"
