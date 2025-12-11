@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails/railtie"
-require "fontawesome_cdn/helpers"
 
 module FontawesomeCdn
   # Railtie for loading FontawesomeCdn helpers into Rails.

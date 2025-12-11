@@ -6,6 +6,32 @@ This project follows [Semantic Versioning](https://semver.org).
 
 ---
 
+## 0.3.0
+
+### Changed
+- Renamed the `fontawesome_cdn_stylesheet_tag` helper to `include_font_awesome` for clarity and consistency.
+- The new `include_font_awesome` helper now supports loading **Font Awesome Kits**, including **Font Awesome Pro**.
+
+### Added
+- Added `kit:` option to `include_font_awesome` to load Font Awesome through the official Kit CDN:
+  ```erb
+  <%= include_font_awesome kit: "YOUR-KIT-ID" %>
+  ```
+
+### Behavior
+- Using a version number still loads Font Awesome Free from cdnjs:
+  ```erb
+  <%= include_font_awesome "7.0.1" %>
+  ```
+- Using `kit:` injects the official Font Awesome Kit `<script>` tag.
+- Passing both `version` and `kit:` now raises an error.
+
+### Notes
+- Existing functionality is preserved for layouts using CDN-based loading.
+- This update enables developers with a **Font Awesome Pro** subscription to load their private icon kits safely and cleanly.
+
+---
+
 ## 0.2.0
 
 ### Changed

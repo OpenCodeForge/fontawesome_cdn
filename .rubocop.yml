@@ -9,6 +9,9 @@ AllCops:
 RSpec:
   Enabled: true
 
+RSpec/MultipleExpectations:
+  Max: 5
+
 Metrics/AbcSize:
   Max: 20
 
