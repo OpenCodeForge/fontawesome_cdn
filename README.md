@@ -27,9 +27,9 @@ bundle install
 
 ## 🚀 Usage
 
-## 1️⃣ Load Font Awesome in your layout
+### 1️⃣ Load Font Awesome (in your layout)
 
-### **Option A — Load from cdnjs (Font Awesome Free)**
+#### **Option A — Load from cdnjs (Font Awesome Free)**
 
 Place inside your `<head>`:
 
@@ -45,7 +45,7 @@ This generates:
 
 ---
 
-### **Option B — Load a Font Awesome Kit (supports Pro)**
+#### **Option B — Load a Font Awesome Kit (supports Pro)**
 
 If you have a Font Awesome Pro subscription, you can load your Kit:
 
@@ -64,23 +64,47 @@ This generates:
 
 ---
 
-## 2️⃣ Render icons in views
+### 2️⃣ Render icons (in views)
+
+Basic usage:
 
 ```erb
 <%= icon "user" %>
 <%= icon "gear", "Settings" %>
-<%= icon "trash-can", "Delete", style: :regular %>
-<%= icon "github", pack: :brands, class: "fa-2x fa-shake" %>
+<%= icon "bell", class: "fa-regular fa-2x fa-shake" %>
 ```
 
-### Options
+#### Using the `fa:` shortcut
 
-| Option | Description |
-|--------|-------------|
-| `style:` | `:solid`, `:regular`, `:light`, `:thin`, `:semibold` (default: `:solid`) |
-| `pack:` | Use `:brands` when using Font Awesome Brands |
-| `class:` | Additional CSS classes |
-| `aria-hidden:` | Passed as-is |
+For convenience, you can use the `fa:` option to pass **space-separated Font Awesome tokens**, automatically prefixed with `fa-`.
+
+```erb
+<%= icon "bell", fa: "regular 2x shake" %>
+<%= icon "github", "Source code", fa: "brands", class: "link" %>
+```
+
+---
+
+## ⚙️ Configuration
+
+FontawesomeCdn allows you to define default icon behavior that will be **automatically applied to all icons**, unless explicitly overridden at render time.
+
+```rb
+# config/initializers/fontawesome_cdn.rb
+FontawesomeCdn.configure do |config|
+  config.default_family = "classic"
+  config.default_style  = "solid"
+  config.default_aria_hidden = true
+end
+```
+
+By default, these settings are used to determine which Font Awesome family and style are added to each icon.  
+If a family or style is explicitly provided via `class:` or `fa:`, it will be used instead of the defaults.
+
+Defaults:
+- `classic` is implicit (no `fa-classic`)
+- default style is injected automatically
+- `brands` does not inject a style
 
 ---
 

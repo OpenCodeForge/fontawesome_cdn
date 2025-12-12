@@ -5,10 +5,10 @@ require_relative "lib/fontawesome_cdn/version"
 Gem::Specification.new do |spec|
   spec.name = "fontawesome_cdn"
   spec.version = FontawesomeCdn::VERSION
-  spec.summary = "Simple Rails helpers to load Font Awesome (Free or Pro Kit) via CDN."
+  spec.summary = "Rails helpers to load Font Awesome via CDN or Kit and render icons in views"
   spec.description = <<~DESC
-    Provides Rails view helpers to load Font Awesome either from cdnjs or from official
-    Font Awesome Kits (including Pro), along with a clean icon helper.
+    FontawesomeCdn provides simple Rails helpers to load Font Awesome (Free or Pro) via CDN or Kit,
+    and render icons using a flexible, class-based API.
   DESC
   spec.authors = ["OpenCodeForge"]
   spec.email = ["contact@opencodeforge.com"]

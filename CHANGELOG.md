@@ -6,6 +6,42 @@ This project follows [Semantic Versioning](https://semver.org).
 
 ---
 
+## 1.0.0
+
+This release marks the **first stable version** of FontawesomeCdn.
+The public API is now considered stable and will follow Semantic Versioning.
+
+### Changed
+- Stabilized the `icon` helper API with a fully class-based approach.
+- Removed legacy `style:` and `pack:` options in favor of direct Font Awesome classes.
+- Default family and style are now applied automatically via configuration.
+- The `classic` family is implicit and no longer rendered as `fa-classic`.
+- When using the `brands` family, no style class is automatically injected.
+
+### Added
+- Added `fa:` option as a convenience shortcut to pass space-separated Font Awesome tokens
+  (automatically prefixed with `fa-`).
+- Added global configuration options:
+  - `default_family`
+  - `default_style`
+  - `default_aria_hidden`
+
+### Examples
+```erb
+<%= icon "user" %>
+<%= icon "gear", "Settings" %>
+<%= icon "bell", class: "fa-regular fa-2x fa-shake" %>
+<%= icon "bell", fa: "regular 2x shake" %>
+<%= icon "github", "Source code", fa: "brands", class: "link" %>
+```
+
+### Notes
+- No validation or conflict resolution is applied when multiple styles or families are provided.
+- Users are free to combine classes as needed for experimentation or advanced use cases.
+- Versions prior to `1.0.0` should be considered experimental.
+
+---
+
 ## 0.3.0
 
 ### Changed

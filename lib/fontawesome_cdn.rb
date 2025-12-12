@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require_relative "fontawesome_cdn/version"
+require_relative "fontawesome_cdn/configuration"
+
 require "fontawesome_cdn/helpers/include_font_awesome"
 require "fontawesome_cdn/helpers/icon"
 require "fontawesome_cdn/railtie" if defined?(Rails)
@@ -19,6 +21,16 @@ module FontawesomeCdn
   }.freeze
 
   SUPPORTED_VERSIONS = CDN_INTEGRITY_MAP.keys.freeze
+
+  class << self
+    def configuration
+      @configuration ||= Configuration.new
+    end
+
+    def configure
+      yield(configuration)
+    end
+  end
 
   # Helpers exposed to the Rails views
   module Helpers
