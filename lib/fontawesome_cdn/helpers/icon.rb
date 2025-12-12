@@ -10,13 +10,28 @@ module FontawesomeCdn
 
     STYLES = %w[solid regular light thin].freeze
 
-    # Main helper for displaying an icon
+    # Renders a Font Awesome icon
+    #
+    # Basic usage (default family and style are applied automatically):
     #
     #   <%= icon "user" %>
     #   <%= icon "gear", "Settings" %>
+    #   <%= icon "bell", class: "fa-regular fa-2x fa-shake" %>
+    #
+    # Using the `fa:` shortcut (tokens are automatically prefixed with `fa-`):
+    #
     #   <%= icon "bell", fa: "regular 2x shake" %>
     #   <%= icon "github", "Source code", fa: "brands", class: "link" %>
     #   <%= icon "alien", fa: "duotone light" %>
+    #
+    # Accessibility:
+    #
+    #   <%= icon "user", aria-hidden: false %>
+    #
+    # Notes:
+    # - Default family and style are applied unless explicitly overridden.
+    # - No validation or conflict resolution is performed on classes.
+    # - Users are free to combine multiple styles or families if needed.
     #
     def icon(name, text = nil, **options)
       # Allow the 2nd argument to be either text or the options hash
