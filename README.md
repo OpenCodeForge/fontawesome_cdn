@@ -8,7 +8,7 @@ Simple Rails helpers to load **Font Awesome via CDN or Kit**, and render icons i
 ✅ Supports **Font Awesome Free (CDN)**  
 ✅ Supports **Font Awesome Pro (Kit)**  
 ✅ Compatible with **Font Awesome 7**  
-✅ Compatible with **Rails 7 and 8**  
+✅ Compatible with **Rails 8**  
 ✅ No asset pipeline required
 
 ---
@@ -27,21 +27,18 @@ bundle install
 
 ## 🚀 Usage
 
-### 1️⃣ Load Font Awesome (in your layout)
+### 1️⃣ Load Font Awesome
 
-#### **Option A — Load from cdnjs (Font Awesome Free)**
-
-Place inside your `<head>`:
+#### Add the helper inside the `<head>` of your layout:
 
 ```erb
-<%= include_font_awesome "7.0.1" %>
+<!-- app/views/layouts/application.html.erb -->
+<head>
+  <%= include_font_awesome "7.0.1" %>
+</head>
 ```
 
-This generates:
-
-```html
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" ...>
-```
+👉 Loads Font Awesome from cdnjs (Font Awesome Free)
 
 ---
 
@@ -51,12 +48,6 @@ If you have a Font Awesome Pro subscription, you can load your Kit:
 
 ```erb
 <%= include_font_awesome kit: "YOUR-KIT-ID" %>
-```
-
-This generates:
-
-```html
-<script src="https://kit.fontawesome.com/YOUR-KIT-ID.js" crossorigin="anonymous"></script>
 ```
 
 👉 Use this method for **Font Awesome Pro**  
