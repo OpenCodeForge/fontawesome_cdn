@@ -29,7 +29,7 @@ bundle install
 
 ### 1️⃣ Load Font Awesome
 
-#### Add the helper inside the `<head>` of your layout:
+**Simply add the helper inside the `<head>` of your layout**:
 
 ```erb
 <!-- app/views/layouts/application.html.erb -->
@@ -38,11 +38,12 @@ bundle install
 </head>
 ```
 
-👉 Loads Font Awesome from cdnjs (Font Awesome Free)
+👉 Loads Font Awesome from cdnjs  
+👉 Recommended for Font Awesome Free
 
 ---
 
-#### **Option B — Load a Font Awesome Kit (supports Pro)**
+#### Alternative — Load a Font Awesome Kit
 
 If you have a Font Awesome Pro subscription, you can load your Kit:
 
