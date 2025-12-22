@@ -47,6 +47,7 @@ module FontawesomeCdn
           FontawesomeCdn.configuration.default_aria_hidden
         end
 
+      # "special" options we consume
       class_tokens = options.delete(:class).to_s.split
       fa_tokens = options.delete(:fa).to_s.split.map { |t| "fa-#{t}" }
 
@@ -70,7 +71,13 @@ module FontawesomeCdn
       classes << "fa-#{name}"
       classes.concat(tokens)
 
-      icon_tag = content_tag(:i, nil, class: classes.uniq.join(" "), "aria-hidden": aria_hidden)
+      # keep remaining options as HTML attributes (style, data, id, title, ...)
+      html_options = options.merge(
+        class: classes.uniq.join(" "),
+        "aria-hidden": aria_hidden
+      )
+
+      icon_tag = content_tag(:i, nil, **html_options)
       return icon_tag if text.nil? || text.to_s.empty?
 
       safe_join([icon_tag, ERB::Util.html_escape(text.to_s)], " ")

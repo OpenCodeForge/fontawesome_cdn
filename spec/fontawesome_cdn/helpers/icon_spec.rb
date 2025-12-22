@@ -95,6 +95,14 @@ RSpec.describe FontawesomeCdn::Helpers, "#icon" do
     end
   end
 
+  context "with extra HTML attributes" do
+    let(:options) { { style: "color: red" } }
+
+    it "passes extra HTML attributes to the rendered tag" do
+      expect(html).to include('style="color: red"')
+    end
+  end
+
   context "when defaults are changed via configuration" do
     before do
       FontawesomeCdn.configure do |c|
