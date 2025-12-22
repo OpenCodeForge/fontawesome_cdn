@@ -6,6 +6,13 @@ This project follows [Semantic Versioning](https://semver.org).
 
 ---
 
+## 1.1.0
+
+### Added 
+- Allow passing arbitrary HTML attributes (e.g. style, data, title) to the `icon` helper
+
+---
+
 ## 1.0.0
 
 This release marks the **first stable version** of FontawesomeCdn.
