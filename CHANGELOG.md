@@ -6,6 +6,13 @@ This project follows [Semantic Versioning](https://semver.org).
 
 ---
 
+## 1.2.0
+
+### Added
+- Added cdnjs support with verified SRI hashes for Font Awesome 7.1.0, 7.2.0, and 7.3.0.
+
+---
+
 ## 1.1.0
 
 ### Added 

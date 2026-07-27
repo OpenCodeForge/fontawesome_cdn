@@ -12,13 +12,19 @@ RSpec.describe FontawesomeCdn::Helpers, "#include_font_awesome" do
   end
 
   context "when using a version" do
-    it "generates a stylesheet link tag" do
-      html = view.include_font_awesome("7.0.1").to_s
+    {
+      "7.3.0" => "sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA==",
+      "7.2.0" => "sha512-nMJjQudb6RMMr08oY6YSfNlEWl1l8XWuoOwNvtWXrrgVs8MCR8AZBB1tEAO+ogiI93gXtG1XPmg+bAP5DochSA==",
+      "7.1.0" => "sha512-59mflmEHdfG3+iNat6Jg0HZPgYcAhZ7q0VO+q50sfkQDMBpoaSJfjJU2HuH5aBeMZyTwfKB54G8hratLP3Jsow=="
+    }.each do |version, integrity|
+      it "generates a stylesheet link tag for Font Awesome #{version}" do
+        html = view.include_font_awesome(version).to_s
+        href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/#{version}/css/all.min.css"
 
-      expect(html).to include("<link")
-      expect(html).to include('rel="stylesheet"')
-      expect(html).to include('href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"')
-      expect(html).to include(FontawesomeCdn::CDN_INTEGRITY_MAP["7.0.1"])
+        expect(html).to include(
+          "<link", 'rel="stylesheet"', %(href="#{href}"), %(integrity="#{integrity}")
+        )
+      end
     end
 
     it "raises an error when version is nil" do

@@ -5,7 +5,7 @@ module FontawesomeCdn
   module Helpers
     # Helper for loading Font Awesome
     #
-    #   <%= include_font_awesome "7.0.1" %>
+    #   <%= include_font_awesome "7.3.0" %>
     #   # => <link rel="stylesheet" ...> to cdnjs
     #
     #   <%= include_font_awesome kit: "YOUR-KIT" %>

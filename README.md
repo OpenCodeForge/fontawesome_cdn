@@ -34,7 +34,7 @@ bundle install
 ```erb
 <!-- app/views/layouts/application.html.erb -->
 <head>
-  <%= include_font_awesome "7.0.1" %>
+  <%= include_font_awesome "7.3.0" %>
 </head>
 ```
 
@@ -104,6 +104,9 @@ Defaults:
 
 These versions are loaded via **cdnjs** and include verified SRI hashes:
 
+- **7.3.0**
+- **7.2.0**
+- **7.1.0**
 - **7.0.1**
 - **7.0.0**
 - **6.7.2**
